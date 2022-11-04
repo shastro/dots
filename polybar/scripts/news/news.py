@@ -16,8 +16,20 @@ category = "science"
 
 # save_url saves URL so that it is possible to open the news in the browser
 # the url will always be the most recent, enable if number_news = 1
-save_url = False
+save_url = True
 number_news = 3
+
+
+def makestr(data, num_news):
+
+    news_string = ""
+    for x in range(number_news):
+        sourceName = data["articles"][x]["source"]["name"]
+        title = data["articles"][x]["title"]
+        news_string += "[" + sourceName + "] " + title + " "
+
+    return news_string
+
 
 try:
     data = requests.get(
@@ -31,12 +43,17 @@ try:
         + category
     ).json()
 
+    data2 = requests.get(
+        "https://newsapi.org/v2/top-headlines?apiKey="
+        + api_key
+        + "&sources=hacker-news"
+        + sources
+    ).json()
+
     news_string = ""
 
-    for x in range(number_news):
-        sourceName = data["articles"][x]["source"]["name"]
-        title = data["articles"][x]["title"]
-        news_string += "[" + sourceName + "] " + title + " "
+    news_string += makestr(data, number_news)
+    news_string += makestr(data2, 2)
 
     path = os.path.join(save_path, "current_news.txt")
     f = open(path, "w")
