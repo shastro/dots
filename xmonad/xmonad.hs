@@ -225,7 +225,7 @@ rPad = 15
 myLayout = avoidStruts (
   -- gaps [(D,rPad), (L,rPad), (U,rPad), (R,rPad)] $
   spacing 7 $
-  tiled ||| Full ||| ThreeCol 1 (3/100) (1/2) ||| Grid )
+  tiled ||| Full ||| ThreeCol 1 (3/100) (1/2) ||| Grid ||| spiral (0.856))
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
@@ -279,9 +279,10 @@ myEventHook = mempty
 --    -- Override the PP values as you would like (see XMonad.Hooks.DynamicLog documentation)
 myLogHook :: DC.Client -> PP
 myLogHook dbus = def {
-  ppCurrent = id,
+  ppCurrent = const "·",
+  -- ppCurrent = wrap "[" "]",
   ppWsSep = " ",
-  ppHiddenNoWindows = \x -> "",
+  ppHiddenNoWindows = id,
   ppSep = " ",
   ppHidden = id,
   -- ppVisible = \x -> "",
