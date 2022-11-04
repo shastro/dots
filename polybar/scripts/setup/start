@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+IFS=$'\n\t'
+
+# Kill old bars
+# polybar-msg cmd quit
+killall -q polybar
+
+# Set monitor var
+MONITOR=$(polybar -m|tail -1|sed -e 's/:.*$//g')
+
+# echo "---" | tee -a /tmp/polybar1.log /tmp/polybar2.log
+polybar left 2>&1 & disown
+polybar right 2>&1 & disown
+
+echo "Bars Launched"
