@@ -1,0 +1,16 @@
+theme = "monokai"
+
+[editor]
+line-number = "relative"
+mouse = false
+
+[editor.file-picker]
+git-ignore = false
+hidden = true
+max-depth = 20
+
+[keys.normal]
+"X" = "extend_line_above"
+# "ret" = ["open_below", "normal_mode"]
+# "S-ret" = ["open_above", "normal_mode"]
+

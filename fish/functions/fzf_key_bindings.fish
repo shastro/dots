@@ -1,0 +1,1 @@
+/home/shastro/.fzf/shell/key-bindings.fish
