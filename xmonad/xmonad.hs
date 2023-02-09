@@ -13,44 +13,49 @@ import           XMonad.Util.EZConfig
 import           XMonad.Util.Ungrab
 --Data
 
-import           Data.Ratio
+import           Data.Maybe                   (fromJust, isJust)
 import           Data.Monoid
-import           Data.Maybe (fromJust, isJust)
+import           Data.Ratio
 
 --
 
 import           System.Exit
 import           XMonad.Util.NamedScratchpad
-import           XMonad.Util.SpawnOnce
 import           XMonad.Util.Run
+import           XMonad.Util.SpawnOnce
 
 --Hooks
 
+import           XMonad.Hooks.DynamicLog      (PP (..), dynamicLogWithPP, pad,
+                                               shorten, shorten', wrap)
 import           XMonad.Hooks.ManageDocks
-import           XMonad.Hooks.ManageHelpers (doCenterFloat, isFullscreen, doFullFloat)
-import           XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, pad, shorten, shorten', PP(..))
+import           XMonad.Hooks.ManageHelpers   (doCenterFloat, doFullFloat,
+                                               isFullscreen)
+import XMonad.Hooks.EwmhDesktops
 
 --Actions
 import           XMonad.Actions.CycleWS
-import           XMonad.Actions.FloatSnap
 import           XMonad.Actions.FloatKeys
+import           XMonad.Actions.FloatSnap
 import           XMonad.Actions.UpdatePointer
 
 
 --Layouts
-import           XMonad.Layout.SimplestFloat
-import           XMonad.Layout.ThreeColumns
-import           XMonad.Layout.Spacing
-import           XMonad.Layout.Tabbed
-import           XMonad.Layout.Grid (Grid(..))
-import           XMonad.Layout.Spiral
-import           XMonad.Layout.Magnifier
 import           System.IO
+import           XMonad.Layout.Grid           (Grid (..))
+import           XMonad.Layout.Magnifier
+import           XMonad.Layout.Renamed
+import           XMonad.Layout.SimplestFloat
+import           XMonad.Layout.Spacing
+import           XMonad.Layout.Spiral
+import           XMonad.Layout.Tabbed
+import           XMonad.Layout.ThreeColumns
 
-import qualified XMonad.StackSet as W
-import qualified Data.Map as M
-import qualified XMonad.DBus as D
-import qualified DBus.Client as DC
+import qualified Data.Map                     as M
+import qualified DBus.Client                  as DC
+import qualified XMonad.DBus                  as D
+import qualified XMonad.StackSet              as W
+
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -101,11 +106,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch a terminal
     [ ((modm , xK_Return), spawn $ XMonad.terminal conf)
 
-    -- launch dmenu
-    , ((modm,               xK_q     ), spawn "rofi -show run")
+    -- launch rofi
+    , ((modm,               xK_q     ), spawn "/home/shastro/.config/rofi/launchers/type-2/launcher.sh")
 
     -- launch qutebrowser
     , ((modm,               xK_b     ), spawn "brave")
+
+    -- toggle news
+    , ((modm .|. shiftMask, xK_n    ), spawn "/home/shastro/bin/toggle_news")
 
     -- Volume controls
     , ((modm,               xK_z     ), spawn "pulsemixer --toggle-mute")
@@ -120,6 +128,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     --  Reset the layouts on the current workspace to default
     , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
+
+    , ((modm , xK_f ), sendMessage $ JumpToLayout "Full")
+
+    , ((modm .|. shiftMask, xK_f ), sendMessage $ JumpToLayout "Tall")
 
     -- Resize viewed windows to the correct size
     , ((modm,               xK_r     ), refresh)
@@ -225,7 +237,7 @@ rPad = 15
 myLayout = avoidStruts (
   -- gaps [(D,rPad), (L,rPad), (U,rPad), (R,rPad)] $
   spacing 7 $
-  tiled ||| Full ||| ThreeCol 1 (3/100) (1/2) ||| Grid ||| spiral (0.856))
+  tiled ||| Full ||| Grid ||| spiral (0.856))
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
@@ -284,18 +296,19 @@ myLogHook dbus = def {
   ppWsSep = " ",
   ppHiddenNoWindows = id,
   ppSep = " ",
-  ppHidden = id,
+  ppHidden = wrap "!" "",
+  ppUrgent = wrap "!" "",
   -- ppVisible = \x -> "",
   ppTitle = const "",
   ppLayout  = (\l -> case l of
-     "Spacing Tall"                  -> "[|]"
-     "Spacing Mirror Tall"           -> "[=]"
-     "Spacing Full"                  -> "[ ]"
-     "Spacing Tabbed Simplest"       -> "[_]"
-     "Spacing Grid"                  -> "[#]"
-     "Spacing SimplestFloat"         -> "[^]"
-     "Spacing Magnifier Tall"        -> "[0]"
-     "Spacing Spiral"                -> "[@]"
+     "Spacing Tall"            -> "[|]"
+     "Spacing Mirror Tall"     -> "[=]"
+     "Spacing Full"            -> "[ ]"
+     "Spacing Tabbed Simplest" -> "[_]"
+     "Spacing Grid"            -> "[#]"
+     "Spacing SimplestFloat"   -> "[^]"
+     "Spacing Magnifier Tall"  -> "[0]"
+     "Spacing Spiral"          -> "[@]"
    ),
   ppOutput = D.send dbus
   }
@@ -345,7 +358,7 @@ main = do
   dbus <- D.connect
 -- Request access (needed when sending messages)
   D.requestAccess dbus
-  xmonad $ docks $ defaults dbus
+  xmonad $ ewmhFullscreen $ ewmh $ docks $ defaults dbus
   -- xmonad $ docks $ def {logHook = dynamicLogWithPP (myLogHook dbus)} $ defaults xmproc
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will

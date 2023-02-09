@@ -11,17 +11,16 @@ api_key = "cf5c4c612332432e96345f54d2187448"
 
 # find sources & country codes at https://newsapi.org/sources
 sources = ""
-country = ""
+country = "us"
 category = "science"
 
 # save_url saves URL so that it is possible to open the news in the browser
 # the url will always be the most recent, enable if number_news = 1
-save_url = True
+save_url = False
 number_news = 3
 
 
 def makestr(data, num_news):
-
     news_string = ""
     for x in range(number_news):
         sourceName = data["articles"][x]["source"]["name"]
@@ -31,29 +30,37 @@ def makestr(data, num_news):
     return news_string
 
 
+def saveurl(data):
+    url = data["articles"][0]["url"]
+    path = os.path.join(save_path, "current_url.txt")
+    f = open(path, "w")
+    f.write(url)
+    f.close()
+
+
 try:
     data = requests.get(
         "https://newsapi.org/v2/top-headlines?apiKey="
         + api_key
         + "&sources="
         + sources
-        + "&country=us"
+        + "&country="
         + country
         + "&category="
         + category
     ).json()
 
-    data2 = requests.get(
-        "https://newsapi.org/v2/top-headlines?apiKey="
-        + api_key
-        + "&sources=hacker-news"
-        + sources
-    ).json()
+    # data2 = requests.get(
+    #     "https://newsapi.org/v2/top-headlines?apiKey="
+    #     + api_key
+    #     + "&sources=hacker-news"
+    #     + sources
+    # ).json()
 
     news_string = ""
 
     news_string += makestr(data, number_news)
-    news_string += makestr(data2, 2)
+    # news_string += makestr(data2, 2)
 
     path = os.path.join(save_path, "current_news.txt")
     f = open(path, "w")
@@ -61,11 +68,8 @@ try:
     f.close()
 
     if save_url == True:
-        url = data["articles"][0]["url"]
-        path = os.path.join(save_path, "current_url.txt")
-        f = open(path, "w")
-        f.write(url)
-        f.close()
+        saveurl(data)
+        # saveurl(data2)
 
 
 except requests.exceptions.RequestException as e:

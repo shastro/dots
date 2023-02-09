@@ -11,6 +11,8 @@ if status is-interactive
     set -gx EDITOR hx
     set -gx SHELL fish
 
+    alias lf lfcd
+
 end
 
 set -g fish_greeting
