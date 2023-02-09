@@ -11,7 +11,8 @@ if status is-interactive
     set -gx EDITOR hx
     set -gx SHELL fish
 
-    abbr lf lfcd
+    abbr --add lf lfcd
+    abbr --add rm trash-put
 
 end
 
