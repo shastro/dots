@@ -12,3 +12,17 @@ roots=["sketch.json"]
 [[grammar]]
 name = "arduino"
 source = { git = "https://github.com/ObserverOfTime/tree-sitter-arduino", rev="c473c09f23b13d9404ec5208fad3eddea89d70f8"}
+
+
+[[language]]
+name="xml"
+file-types=["xml", "launch"]
+
+# [[grammar]]
+# name="julia"
+# source = { git = "https://github.com/tree-sitter/tree-sitter-julia", rev="e2f449e2bcc95f1d07ceb62d67f986005f73a6be"}
+
+[[language]]
+name="julia"
+file-types = ["jl"]
+# language-server = { command = "julia", args = [ "--startup-file=no", "--history-file=no", "-e", "using LanguageServer;using Pkg;import StaticLint;import SymbolServer;env_path = dirname(Pkg.Types.Context().env.project_file);server = LanguageServer.LanguageServerInstance(stdin, stdout, env_path, \"\");server.runlinter = true;run(server);" ] }

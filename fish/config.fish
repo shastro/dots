@@ -8,12 +8,16 @@ if status is-interactive
     if [ "$TERM" = "xterm-kitty" ]
         export TERM=xterm
     end
+    abbr --set lf lfcd
     set -gx EDITOR hx
     set -gx SHELL fish
 
-    abbr --add lf lfcd
-    abbr --add rm trash-put
+    set -gx LIBVA_DRIVER_NAME vdpau
 
+    set -gx SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket.
 end
 
 set -g fish_greeting
+
+starship init fish | source
+
