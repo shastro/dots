@@ -9,6 +9,9 @@ if status is-interactive
         export TERM=xterm
     end
     abbr --set lf lfcd
+    abbr --set monright xrandr --output DP-0 --right-of DP-2 --auto
+    abbr --set monleft xrandr --output DP-0 --left-of DP-2 --auto
+    abbr --set monsame xrandr --output DP-0 --same-as DP-2 --auto
     set -gx EDITOR hx
     set -gx SHELL fish
 

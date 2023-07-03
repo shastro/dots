@@ -1,4 +1,3 @@
---
 -- xmonad example config file.
 --
 -- A template showing all available configuration hooks,
@@ -31,13 +30,15 @@ import           XMonad.Hooks.DynamicLog      (PP (..), dynamicLogWithPP, pad,
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers   (doCenterFloat, doFullFloat,
                                                isFullscreen)
-import XMonad.Hooks.EwmhDesktops
+import           XMonad.Hooks.EwmhDesktops
 
 --Actions
 import           XMonad.Actions.CycleWS
 import           XMonad.Actions.FloatKeys
 import           XMonad.Actions.FloatSnap
 import           XMonad.Actions.UpdatePointer
+import           XMonad.Actions.WorkspaceNames
+import           XMonad.Actions.WorkspaceCursors
 
 
 --Layouts
@@ -90,14 +91,14 @@ myModMask       = mod4Mask
 --
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
-myWorkspaces    = ["1","2","3","4","5","6","7","8","mus"]
+myWorkspaces    = map show [1..9]
 
 -- Border colors for unfocused and focused windows, respectively.
 --
 myNormalBorderColor  = "#585b70"
 -- myFocusedBorderColor = "#cba6f7"
 myFocusedBorderColor = "#e5a630"
-
+myFocusedFullScreenColor = "#bd2a17"
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
@@ -134,7 +135,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_f ), sendMessage $ JumpToLayout "Tall")
 
     -- Resize viewed windows to the correct size
-    , ((modm,               xK_r     ), refresh)
+    , ((modm,               xK_r     ), renameWorkspace def)
 
     -- Move focus to the next window
     , ((modm,               xK_e     ), windows W.focusDown)
@@ -181,8 +182,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Restart xmonad
     , ((modm .|. controlMask , xK_q     ), spawn "xmonad --recompile; pkill xmobar; xmonad --restart")
 
+
     -- Run xmessage with a summary of the default keybindings (useful for beginners)
     , ((modm .|. shiftMask, xK_slash ), spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
+
+    -- Moving to next windows
+    , ((modm , xK_Right), moveTo Next (Not emptyWS))
+    , ((modm , xK_Left), moveTo Prev (Not emptyWS))
+    , ((modm .|. shiftMask , xK_Right), moveTo Next emptyWS)
+    , ((modm .|. shiftMask , xK_Left), moveTo Prev emptyWS)
     ]
     ++
 
@@ -291,24 +299,26 @@ myEventHook = mempty
 --    -- Override the PP values as you would like (see XMonad.Hooks.DynamicLog documentation)
 myLogHook :: DC.Client -> PP
 myLogHook dbus = def {
-  ppCurrent = const "·",
+  -- ppCurrent = const "§",
+  ppCurrent = const "%{F#bdae2b}■%{F-}",
   -- ppCurrent = wrap "[" "]",
   ppWsSep = " ",
-  ppHiddenNoWindows = id,
+  ppHiddenNoWindows = const "·",
   ppSep = " ",
-  ppHidden = wrap "!" "",
-  ppUrgent = wrap "!" "",
+  ppVisible = const "%{F#316585}■%{F-}",  
+  -- ppRename = idc,
+  ppHidden = const "¤",
   -- ppVisible = \x -> "",
   ppTitle = const "",
   ppLayout  = (\l -> case l of
-     "Spacing Tall"            -> "[|]"
+     "Spacing Tall"            -> "n"
      "Spacing Mirror Tall"     -> "[=]"
-     "Spacing Full"            -> "[ ]"
+     "Spacing Full"            -> "%{F#bd2a17}f%{F-}"
      "Spacing Tabbed Simplest" -> "[_]"
-     "Spacing Grid"            -> "[#]"
+     "Spacing Grid"            -> "g"
      "Spacing SimplestFloat"   -> "[^]"
      "Spacing Magnifier Tall"  -> "[0]"
-     "Spacing Spiral"          -> "[@]"
+     "Spacing Spiral"          -> "sp"
    ),
   ppOutput = D.send dbus
   }
