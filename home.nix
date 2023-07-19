@@ -32,11 +32,18 @@
     # Programs
     programs.helix = import ./helix.nix;
     programs.fish.enable = true;
-    programs.git.enable = true;
+    programs.git = {
+      enable = true;
+      userEmail = "guitarshughes@hotmail.com";
+      userName = "shastro";
+    };
 
     # Services
     services.picom = import ./picom.nix;
     
+
+    services.polybar.enable = true;
+    services.polybar.config = ./polybar/config.ini;
   }
   
   
