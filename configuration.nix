@@ -12,7 +12,10 @@
     ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = false;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "nodev";
+  boot.loader.grub.efiSupport = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -55,9 +58,14 @@
     enable = true;
     displayManager.defaultSession = "none+i3";
 
+    desktopManager.wallpaper = {
+        mode = "fill";
+    };
+
     windowManager.i3.enable = true;
   };
 
+  fonts.fonts =  with pkgs; [fira-code];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.shastro = {
@@ -92,6 +100,7 @@
     helix
     git
     file
+    feh
   ];
 
 
@@ -107,6 +116,16 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  systemd.services.setbg = {
+    script = ''
+      feh --bg-fill /home/shastro/dots/bg/dark.jpg
+    '';
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+  };
+
+  systemd.services.setbg.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

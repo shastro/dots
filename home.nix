@@ -17,6 +17,9 @@
       kitty
       helix
       gitui
+      flameshot
+      rofi
+      feh
     ];
 
 
@@ -38,12 +41,27 @@
       userName = "shastro";
     };
 
+    programs.kitty = {
+      enable = true;
+      shellIntegration.enableFishIntegration = true;
+      settings = {
+        term = "xterm";
+        confirm_os_window_close = 0;
+      };
+    };
+
     # Services
     services.picom = import ./picom.nix;
-    
+    # Hide the mouse cursor when not in use:
+    services.unclutter = {
+      enable = true;
+      extraOptions = [ "ignore-scrolling" ];
+    };
 
-    services.polybar.enable = true;
-    services.polybar.config = ./polybar/config.ini;
+
+    # services.polybar.enable = true;
+    # services.polybar.config = ./polybar/config.ini;
+
   }
   
   

@@ -6,11 +6,16 @@
     round-borders = 0.0;
     use-damage = true;
     detect-rounded-corners = true;
+    mark-ovredir-focused = false;
+    mark-wmwin-focused = false;
     blur = {
       method = "gaussian";
-      size = 10;
-      deviation = 5.0;
+      size = 30;
+      deviation = 15.0;
     };
+    blur-background-exclude = [
+      "class_g = 'Peek'"
+    ];
   };
 
   activeOpacity = 0.8;
