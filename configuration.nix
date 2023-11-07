@@ -68,9 +68,11 @@
   fonts.fonts =  with pkgs; [fira-code];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.mutableUsers = false;
   users.users.shastro = {
     isNormalUser = true;
     description = "shastro";
+    initialHashedPassword = "$6$HeSc3H.kCISN4Ch$mnm4Nk.q7FGuVK65eou.EGLT7skTD4LjLuPLy7Uh5arsMNqkIZfHo35xPZKrwc6cQLtGVjG28wmNfWLcTLa5k0";
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
@@ -100,6 +102,7 @@
     helix
     git
     file
+    kitty
     feh
   ];
 
