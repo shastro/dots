@@ -1,0 +1,120 @@
+
+"attribute" = {  }
+"ui.virtual.wrap"="softwrap"
+"keyword" = {modifiers = ["bold"]}
+"keyword.control.conditional" = {modifiers = ["bold"]}
+"keyword.directive" = {fg="constants", modifiers = ["bold"]} # -- preprocessor comments (#if in C)
+
+"namespace" = ""
+
+"punctuation" = ""
+"punctuation.delimiter" = ""
+
+"operator" = ""
+"special" = {fg="constants", modifiers = ["bold"]}
+
+"variable" = {fg="fg"}
+"variable.builtin" = "constants"
+"variable.parameter" = {fg="fg"}
+"variable.other.member" = ""
+
+"type" = {underline = { color = "grey", style = "line" } }
+"type.builtin" = ""
+"type.enum.variant" = ""
+
+"constructor" = ""
+
+"function" = ""
+"function.macro" = {fg = "constants", modifiers = ["bold"]}
+"function.builtin" = {modifiers = ["bold"]}
+
+"tag" = ""
+"comment" = { fg = "comment", modifiers = ["bold"]}
+
+"string" = {fg = "constants", modifiers = ["italic"]}
+"string.regexp" = "comment"
+"string.special" = "highlight"
+
+"constant" = "constants"
+"constant.builtin" = "constants"
+"constant.numeric" = {fg = "constants", modifiers = ["bold"]}
+"constant.character.escape" = "constants"
+
+# used for lifetimes
+"label" = "constants"
+
+"markup.heading.marker" = { fg = "text" }
+"markup.heading" = { fg = "text", modifiers = [""] }
+"markup.list" = ""
+"markup.bold" = { modifiers = [""] }
+"markup.italic" =  { modifiers = ["italic"] }
+"markup.link.url" = { fg = "", modifiers = [""] }
+"markup.link.text" = { fg = "" }
+"markup.raw" = "constants"
+
+"diff.plus" = ""
+"diff.minus" = ""
+"diff.delta" = ""
+
+"ui.background" = { bg = "bg" }
+"ui.background.separator" = { fg = "fg" }
+
+"ui.linenr" = { fg = "grey" }
+"ui.linenr.selected" = { fg = "comment" }
+
+"ui.statusline" = { fg = "text", bg = "bg_highlight" }
+"ui.statusline.inactive" = { fg = "text", bg = "popup_bg", modifiers = [""] }
+"ui.statusline.normal" = { fg = "", bg = "", modifiers = [""] }
+"ui.statusline.insert" = { fg = "", bg = "", modifiers = [""] }
+"ui.statusline.select" = { fg = "", bg = "", modifiers = [""] }
+
+"ui.popup" = { bg = "popup_bg", fg="bg"}
+"ui.window" = { fg = "grey" }
+"ui.help" = { bg = "bg", fg = "text" }
+
+"ui.text" = { fg = "text" }
+"ui.text.info" = { fg = "text" }
+"ui.text.focus" = { fg = "text", modifiers = ["bold"]}
+
+"ui.virtual" = { fg = "grey" }
+"ui.virtual.ruler" = {bg="#eddbc5"}
+"ui.virtual.indent-guide" = { fg = "#eddbc5" }
+"ui.virtual.inlay-hint" = { fg = "grey" }
+
+
+"ui.selection" = { bg = "highlight" }
+"ui.selection.primary" = { bg = "highlight" }
+
+"ui.cursor" = {fg="", bg = "cursor_blue" }
+"ui.cursor.match" = { bg = "cursor_match"}
+"ui.cursorline.primary" = { bg = "" }
+
+"ui.highlight" = { fg = "text", bg = "highlight" }
+
+"ui.menu" = { fg = "text", bg = "bg" }
+"ui.menu.selected" = { fg = "text", bg = "highlight" }
+"ui.menu.scroll" = { fg = "", bg = "" }
+
+"diagnostic.warning" = { bg = "#eddbc5", fg = "text"}
+"diagnostic.error" = {bg = "error", fg = "text" }
+"diagnostic.info" = { bg = "#eddbc5", fg = "text" }
+"diagnostic.hint" = { bg = "#eddbc5", fg = "text" }
+
+warning = {fg = "constants", bg = "popup_bg"}
+error = {fg = "constants", bg = "popup_bg"}
+info = {fg = "comment", bg = "popup_bg"}
+hint = {fg = "comment", bg = "popup_bg"}
+
+[palette]
+error="#fca5a5"
+bg = "#FFFFF7"
+bg_highlight = "#efefe0"
+highlight = "#ffcf00"
+selection = "#0a030d"
+grey = "#797366"
+cursor_blue = "#2ce8f5"
+cursor_match = "#b9e8e6"
+text = "#0a030d"
+comment = "#004d57"
+constants = "#ff0059"
+popup_bg = "#f2f2eb"

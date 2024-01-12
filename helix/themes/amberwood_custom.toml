@@ -1,11 +1,11 @@
 
-"attribute" = { fg = "blue", modifiers = ["italic"] }
+"attribute" = { fg = "blue" }
 "ui.virtual.wrap"="softwrap"
 "keyword" = "keyword"
-"keyword.control.conditional" = { fg = "conditional", modifiers = ["italic"] }
+"keyword.control.conditional" = { fg = "conditional" }
 "keyword.directive" = "magenta" # -- preprocessor comments (#if in C)
 
-"namespace" = { fg = "namespace", modifiers = ["italic"] }
+"namespace" = { fg = "namespace" }
 
 "punctuation" = "gray06"
 "punctuation.delimiter" = "gray06"
@@ -15,7 +15,7 @@
 
 "variable" = {fg="fg"}
 "variable.builtin" = "bright_blue"
-"variable.parameter" = {fg="white", modifiers=["italic"]}
+"variable.parameter" = {fg="white"}
 "variable.other.member" = "white"
 
 "type" = "maroon_bright"
@@ -24,16 +24,16 @@
 
 "constructor" = "yellow"
 
-"function" = {fg="function", modifiers=["italic"]}
+"function" = {fg="function"}
 "function.macro" = "bright_cyan"
 "function.builtin" = "support_function"
 
 "tag" = "tag"
-"comment" = { fg = "comment", modifiers = ["italic"] }
+"comment" = { fg = "comment" }
 
 "string" = "string"
-"string.regexp" = "green"
-"string.special" = "yellow"
+"string.regexp" = "highlight"
+"string.special" = "highlight"
 
 "constant" = "constant"
 "constant.builtin" = "yellow"
@@ -47,16 +47,16 @@
 "markup.heading" = { fg = "bright_blue", modifiers = ["bold"] }
 "markup.list" = "gray06"
 "markup.bold" = { modifiers = ["bold"] }
-"markup.italic" = { modifiers = ["italic"] }
+# "markup.italic" =  { modifiers = ["italic"] }
 "markup.link.url" = { fg = "green", modifiers = ["underlined"] }
-"markup.link.text" = { fg = "blue", modifiers = ["italic"] }
+"markup.link.text" = { fg = "blue" }
 "markup.raw" = "yellow"
 
 "diff.plus" = "bright_green"
 "diff.minus" = "red"
 "diff.delta" = "bright_blue"
 
-"ui.background" = { bg = "bg" }
+# "ui.background" = { bg = "bg" }
 "ui.background.separator" = { fg = "fg" }
 
 "ui.linenr" = { fg = "gray04" }
