@@ -1,4 +1,4 @@
-theme = "lcf"
+theme = "amberwood_custom"
 
 [editor]
 line-number = "relative"
@@ -30,5 +30,5 @@ smart-case = false
 "H" = "extend_to_line_start"
 "A-v" = ["search_selection", "extend_search_next"]
 "A-k" = ["search_selection", "extend_search_prev"]
-"A-o" = ["open_below", "normal_mode"]
-"A-O" = ["open_above", "normal_mode"]
+# "A-o" = ["open_below", "normal_mode"]
+# "A-O" = ["open_above", "normal_mode"]

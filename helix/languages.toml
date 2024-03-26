@@ -1,17 +1,17 @@
-[[language]]
-name = "arduino"
-scope = "source.ino"
-injection-regex="^arduino$"
-file-types= ["ino"]
-comment-token = "//"
-language-server = { command = "arduino-language-server"}
-# , args =["-clangd /usr/bin/clangd",
-# "-cli /usr/bin/arduino-cli", "-cli-config $HOME/.arduino15/arduino-cli.yaml", "-fqbn arduino:avr:uno"]}
-roots=["sketch.json"]
+# [[language]]
+# name = "arduino"
+# scope = "source.ino"
+# injection-regex="^arduino$"
+# file-types= ["ino"]
+# comment-token = "//"
+# language-server = { command = "arduino-language-server"}
+# # , args =["-clangd /usr/bin/clangd",
+# # "-cli /usr/bin/arduino-cli", "-cli-config $HOME/.arduino15/arduino-cli.yaml", "-fqbn arduino:avr:uno"]}
+# roots=["sketch.json"]
 
-[[grammar]]
-name = "arduino"
-source = { git = "https://github.com/ObserverOfTime/tree-sitter-arduino", rev="c473c09f23b13d9404ec5208fad3eddea89d70f8"}
+# [[grammar]]
+# name = "arduino"
+# source = { git = "https://github.com/ObserverOfTime/tree-sitter-arduino", rev="c473c09f23b13d9404ec5208fad3eddea89d70f8"}
 
 
 [[language]]
